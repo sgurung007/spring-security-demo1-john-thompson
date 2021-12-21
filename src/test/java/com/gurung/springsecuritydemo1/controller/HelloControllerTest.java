@@ -1,0 +1,14 @@
+package com.gurung.springsecuritydemo1.controller;
+
+import org.junit.jupiter.api.Test;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+class HelloControllerTest extends BaseIT{
+    @Test
+    void getHello() throws Exception {
+        mockMvc.perform(get("/hello/get-hello"))
+                .andExpect(status().isOk());
+    }
+}

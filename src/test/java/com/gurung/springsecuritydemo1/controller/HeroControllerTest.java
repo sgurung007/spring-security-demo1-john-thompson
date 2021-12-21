@@ -12,7 +12,8 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
 class HeroControllerTest {
@@ -21,7 +22,6 @@ class HeroControllerTest {
     WebApplicationContext wac;
 
     MockMvc mockMvc;
-
 
     @BeforeEach
     void setUp() {
@@ -44,6 +44,15 @@ class HeroControllerTest {
     @Test
     void getHeroWithHttpBasic() throws Exception {
         mockMvc.perform(get("/hero/get-hero").with(httpBasic("spring","boot")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.name").value("name100"))
+        ;
+    }
+
+    @Test
+    void getHeroWithHttpBasicWithUser() throws Exception {
+        mockMvc.perform(get("/hero/get-hero").with(httpBasic("user","password")))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.name").value("name100"))
