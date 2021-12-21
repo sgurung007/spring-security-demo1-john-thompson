@@ -1,5 +1,6 @@
 package com.gurung.springsecuritydemo1.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -7,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author bir
@@ -14,6 +17,12 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -32,15 +41,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("spring")
-                .password("{noop}boot")
+                .password("boot")
                 .roles("ADMIN")
                 .and()
                 .withUser("user")
-                .password("{noop}password")
+                .password("password")
                 .roles("USER")
                 .and()
                 .withUser("scott")
-                .password("{noop}tiger")
+                .password("tiger")
                 .roles("CUSTOMER");
     }
     //    @Override
