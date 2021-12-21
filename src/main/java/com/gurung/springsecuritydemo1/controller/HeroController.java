@@ -10,6 +10,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class HeroController {
 
+    @GetMapping("/get-hero")
+    @ResponseStatus(HttpStatus.OK)
+    public Hero getHero(){
+        Hero hero100 = Hero.builder().id(100).name("name100").build();
+        return hero100;
+    }
+
     @GetMapping("/hello")
     @ResponseStatus(HttpStatus.OK)
     public String hello(){
