@@ -58,4 +58,13 @@ class HeroControllerTest {
                 .andExpect(jsonPath("$.name").value("name100"))
         ;
     }
+
+    @Test
+    void getHeroWithHttpBasicWithUserScott() throws Exception {
+        mockMvc.perform(get("/hero/get-hero").with(httpBasic("scott","tiger")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.name").value("name100"))
+        ;
+    }
 }
