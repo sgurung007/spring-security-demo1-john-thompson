@@ -37,6 +37,7 @@ public class PasswordEncodingTests {
 
         String encodedPwd = ldap.encode(PASSWORD);
         assertTrue(ldap.matches(PASSWORD, encodedPwd));
+        System.out.println(ldap.encode("tiger"));
     }
 
     @Test
