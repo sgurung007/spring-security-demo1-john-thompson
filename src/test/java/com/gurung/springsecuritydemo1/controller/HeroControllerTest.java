@@ -9,6 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -34,8 +35,18 @@ class HeroControllerTest {
     @Test
     void getHero() throws Exception {
         mockMvc.perform(get("/hero/get-hero"))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.name").value("name100"))
-                .andExpect(status().isOk());
+        ;
+    }
+
+    @Test
+    void getHeroWithHttpBasic() throws Exception {
+        mockMvc.perform(get("/hero/get-hero").with(httpBasic("spring","boot")))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").isNumber())
+                .andExpect(jsonPath("$.name").value("name100"))
+        ;
     }
 }
