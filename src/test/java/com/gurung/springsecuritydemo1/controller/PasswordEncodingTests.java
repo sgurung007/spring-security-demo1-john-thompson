@@ -18,7 +18,8 @@ public class PasswordEncodingTests {
     void testBcrypt(){
         PasswordEncoder bcrypt=new BCryptPasswordEncoder();
         System.out.println(bcrypt.encode(PASSWORD));
-        System.out.println(bcrypt.encode(PASSWORD));
+        System.out.println(bcrypt.encode("boot"));
+        System.out.println(bcrypt.encode("tiger"));
     }
 
     @Test
