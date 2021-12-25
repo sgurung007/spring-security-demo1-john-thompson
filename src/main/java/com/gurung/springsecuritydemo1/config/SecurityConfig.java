@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -50,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("USER")
                 .and()
                 .withUser("scott")
-                .password("{ldap}{SSHA}wfhNrs1yQANKWhOwGAsSIpC0xwXkHfvKmHQ91Q==")
+                .password("{bcryptNew}$2a$15$Y347GLVUg6ADiIE9svXame3iRtADFMOEOMJZ8hueK2EFXSfSfH/pO")//tiger
                 .roles("CUSTOMER");
     }
     //    @Override

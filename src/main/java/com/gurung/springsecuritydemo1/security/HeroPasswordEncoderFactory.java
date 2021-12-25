@@ -10,8 +10,10 @@ public class HeroPasswordEncoderFactory {
 
     public static PasswordEncoder createDelegatingPasswordEncoder() {
         String encodingId = "bcrypt";
+        String endoing15id="bcryptNew";
         Map<String, PasswordEncoder> encoders = new HashMap();
         encoders.put(encodingId, new BCryptPasswordEncoder());
+        encoders.put(endoing15id, new BCryptPasswordEncoder(15));
         encoders.put("ldap", new LdapShaPasswordEncoder());
         encoders.put("noop", NoOpPasswordEncoder.getInstance());
         encoders.put("sha256", new StandardPasswordEncoder());
