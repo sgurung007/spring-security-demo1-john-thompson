@@ -25,11 +25,12 @@ class HeroControllerTest {
 
     @BeforeEach
     void setUp() {
-       mockMvc= MockMvcBuilders
+        mockMvc = MockMvcBuilders
                 .webAppContextSetup(wac)
                 .apply(springSecurity())
                 .build();
     }
+
 
     @WithMockUser("suraj")
     @Test
@@ -43,7 +44,7 @@ class HeroControllerTest {
 
     @Test
     void getHeroWithHttpBasic() throws Exception {
-        mockMvc.perform(get("/hero/get-hero").with(httpBasic("spring","boot")))
+        mockMvc.perform(get("/hero/get-hero").with(httpBasic("spring", "boot")))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.name").value("name100"))
@@ -52,7 +53,7 @@ class HeroControllerTest {
 
     @Test
     void getHeroWithHttpBasicWithUser() throws Exception {
-        mockMvc.perform(get("/hero/get-hero").with(httpBasic("user","password")))
+        mockMvc.perform(get("/hero/get-hero").with(httpBasic("user", "password")))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.name").value("name100"))
@@ -61,7 +62,7 @@ class HeroControllerTest {
 
     @Test
     void getHeroWithHttpBasicWithUserScott() throws Exception {
-        mockMvc.perform(get("/hero/get-hero").with(httpBasic("scott","tiger")))
+        mockMvc.perform(get("/hero/get-hero").with(httpBasic("scott", "tiger")))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNumber())
                 .andExpect(jsonPath("$.name").value("name100"))
